@@ -1,5 +1,5 @@
 import urllib.request as req
-url="https://www.ptt.cc/bbs/movie/index.html"
+url="https://www.dcard.tw/f"
 #加header的目的是為了要讓爬蟲程式更像正常瀏覽者
 #刷新網頁查看在f12 的 network 標籤裡面的網路連線的內容
 #選擇你要看的網頁
@@ -12,12 +12,13 @@ with req.urlopen(request) as response:
     data = response.read().decode("utf-8")
 #print(data)
 import bs4 
+import re
 root = bs4.BeautifulSoup(data, "html.parser")
-titles = root.find_all("div",class_="title")#尋找class="title"的div標籤
+titles = root.find_all("h2",re.compile('sc'))#尋找class="title"的div標籤
 #print(root.title.string)
 #print(titles)
 for title in titles:
-	if title.a != None:
-		print(title.a.string)
+	#if title.a != None:
+	print(title.a.span.string)
 		
 
